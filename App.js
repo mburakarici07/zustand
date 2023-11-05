@@ -1,58 +1,21 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import useBearStore from './storage/counter';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Pages1 from "./pages/Pages1";
+import Pages2 from "./pages/Pages2";
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const count = useBearStore(state => state.bears);
-  const increase = useBearStore(state => state.increase);
-  const decrease = useBearStore(state => state.decrease);
-
   return (
-    <SafeAreaView>
-      <View style={styles.countView}>
-        <Text style={styles.countText}>{count}</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonView} onPress={decrease}>
-          <Text>Decrease</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonView} onPress={increase}>
-          <Text>Increase</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Pages1" component={Pages1} />
+        <Stack.Screen name="Pages2" component={Pages2} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonView: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: 'gray',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  countView: {
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-  },
-  countText: {fontSize: 20},
-});
 
 export default App;
